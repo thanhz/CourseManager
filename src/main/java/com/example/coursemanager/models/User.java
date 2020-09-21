@@ -1,12 +1,19 @@
 package com.example.coursemanager.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 
-    private final long id;
-    private final String name;
+    private @Id @GeneratedValue(strategy= GenerationType.IDENTITY) long id;
+    private String name;
 
-    public User(long id, String name) {
-        this.id = id;
+    public User(){ } //Empty constructor required by hibernate
+
+    public User(String name) {
         this.name = name;
     }
 

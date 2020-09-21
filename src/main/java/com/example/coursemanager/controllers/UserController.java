@@ -1,20 +1,38 @@
 package com.example.coursemanager.controllers;
 
+import com.example.coursemanager.dao.UserRepository;
 import com.example.coursemanager.models.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class UserController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    private final UserRepository repository;
 
-    @GetMapping("/getUser")
-    public User getUser(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new User(counter.incrementAndGet(), String.format(template, name));
+    UserController(UserRepository repository){
+        this.repository = repository;
     }
+
+    @GetMapping("/user")
+    public List<User> getUsers(){
+        return repository.findAll();
+    }
+
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable long id) {
+        return repository.findById(id).get();//should return orElse custom exception
+    }
+
+    @PostMapping("/user")
+    public User addUser(@RequestBody User user){
+        return repository.save(user);
+    }
+
+/*    @GetMapping("/getUser")
+    public User getUser(@RequestParam(value = "name", defaultValue = "bob") Long id) {
+        return repository.findById(id);
+    }*/
 }
