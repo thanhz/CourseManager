@@ -1,15 +1,19 @@
 package com.example.coursemanager.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
 
     private @Id @GeneratedValue(strategy= GenerationType.IDENTITY) long id;
     private String name;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Course> subscriptions = new ArrayList<>();
 
     public User(){ } //Empty constructor required by hibernate
 
@@ -33,5 +37,11 @@ public class User {
         this.name = name;
     }
 
+    public List<Course> getSubscriptions() {
+        return subscriptions;
+    }
 
+    public void setSubscriptions(List<Course> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
 }

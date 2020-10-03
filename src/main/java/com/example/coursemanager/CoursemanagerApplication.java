@@ -1,6 +1,8 @@
 package com.example.coursemanager;
 
+import com.example.coursemanager.dao.CourseRepository;
 import com.example.coursemanager.dao.UserRepository;
+import com.example.coursemanager.models.Course;
 import com.example.coursemanager.models.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,10 +17,27 @@ public class CoursemanagerApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(UserRepository repository) {
+	CommandLineRunner init(UserRepository userRepository, CourseRepository courseRepository) {
 		return args -> {
-			repository.save(new User("Bob"));
-			repository.save(new User("Alice"));
+			//Create the User
+			User bob = new User("Bob");
+
+			//Save the user
+			userRepository.save(bob);
+
+			//Create the course
+			Course course = new Course("Python");
+
+			//Save the course
+			courseRepository.save(course);
+
+			// add course to the user
+			bob.getSubscriptions().add(course);
+//			course.getSubscribers().add(bob);
+
+			//update the user
+			userRepository.save(bob);
+//			courseRepository.save(course);
 		};
 	}
 }
