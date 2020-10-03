@@ -32,10 +32,12 @@ public class CoursemanagerApplication {
 			courseRepository.save(course);
 
 			// add course to the user
-			course.getSubscribers().add(bob);
+			bob.getSubscriptions().add(course);
+//			course.getSubscribers().add(bob);
 
 			//update the user
-			courseRepository.save(course);
+			userRepository.save(bob);
+//			courseRepository.save(course);
 		};
 	}
 }

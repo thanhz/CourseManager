@@ -1,5 +1,7 @@
 package com.example.coursemanager.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
     @ManyToMany(mappedBy = "subscriptions")
+    @JsonManagedReference
     private List<User> subscribers = new ArrayList<>();
 
     public Course() {
@@ -39,6 +43,10 @@ public class Course {
 
     public List<User> getSubscribers() {
         return subscribers;
+    }
+
+    public void setSubscribers(List<User> subscribers) {
+        this.subscribers = subscribers;
     }
 
 }
