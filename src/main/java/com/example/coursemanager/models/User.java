@@ -1,18 +1,21 @@
 package com.example.coursemanager.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User {
 
     private @Id @GeneratedValue(strategy= GenerationType.IDENTITY) long id;
     private String name;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<Course> subscriptions = new ArrayList<>();
 
     public User(){ } //Empty constructor required by hibernate

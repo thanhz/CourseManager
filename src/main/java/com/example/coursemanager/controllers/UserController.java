@@ -2,10 +2,12 @@ package com.example.coursemanager.controllers;
 
 import com.example.coursemanager.dao.UserRepository;
 import com.example.coursemanager.exceptions.UserNotFoundException;
+import com.example.coursemanager.models.Course;
 import com.example.coursemanager.models.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -16,22 +18,28 @@ public class UserController {
         this.repository = repository;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public List<User> getUsers(){
         return repository.findAll();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public User getUserById(@PathVariable long id) {
         return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @PostMapping("/user")
+    @GetMapping("/users/{id}/courses")
+    public List<Course> getUserCourses(@PathVariable long id) {
+        User user = getUserById(id);
+        return user.getSubscriptions();
+    }
+
+    @PostMapping("/users")
     public User addUser(@RequestBody User user){
         return repository.save(user);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/users/{id}")
     public User replaceUser(@RequestBody User newUser, @PathVariable long id) {
         return repository.findById(id)
                 .map(user -> {
@@ -43,7 +51,7 @@ public class UserController {
                 });
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable long id) {
         repository.deleteById(id);
     }

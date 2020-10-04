@@ -33,11 +33,11 @@ public class CoursemanagerApplication {
 
 			// add course to the user
 			bob.getSubscriptions().add(course);
-//			course.getSubscribers().add(bob);
+			course.getSubscribers().add(bob);
 
 			//update the user
-			userRepository.save(bob);
-//			courseRepository.save(course);
+//			userRepository.save(bob);
+			courseRepository.save(course);
 		};
 	}
 }

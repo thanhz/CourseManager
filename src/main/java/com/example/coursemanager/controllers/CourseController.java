@@ -25,12 +25,6 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
-    @GetMapping("/user/{id}/courses")
-    public List<Course> getUserCourses(@PathVariable long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.get().getSubscriptions();
-    }
-
     @PostMapping("/courses")
     public Course addCourse(@RequestBody Course course){
         return courseRepository.save(course);
