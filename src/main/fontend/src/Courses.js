@@ -11,17 +11,15 @@ export default class Courses extends Component {
   componentDidMount() {
     axios.get("http://localhost:8080/courses").then((response) => {
       console.log(response);
-      this.setState({Courses:response.data});
+      this.setState({ Courses: response.data });
     });
   }
 
   render() {
     const courses = this.state.Courses.map((course, index) => (
-      <div>
-        <div key={index}>
+      <div key={index}>
         <h1>{course.id}</h1>
         <p>{course.name}</p>
-      </div>
       </div>
     ));
 
