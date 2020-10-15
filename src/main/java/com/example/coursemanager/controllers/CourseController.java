@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*") //Should only allow specific host not all!
 public class CourseController {
 
     private final UserRepository userRepository;
