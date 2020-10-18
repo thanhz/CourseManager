@@ -11,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class CoursemanagerApplication {
 
@@ -30,18 +32,18 @@ public class CoursemanagerApplication {
 			userRepository.save(teacher);
 
 			//Create the course
-			Course course = new Course("Python");
+			Course course = new Course("Java");
+			Course course2 = new Course("Python");
 
 			//Save the course
-			courseRepository.save(course);
+			courseRepository.saveAll(Arrays.asList(course,course2));
 
 			// add course to the user
-			bob.getSubscriptions().add(course);
+			bob.getSubscriptions().addAll(Arrays.asList(course,course2));
 			teacher.getSubscriptions().add(course);
 
 			//update the user
-			userRepository.save(bob);
-			userRepository.save(teacher);
+			userRepository.saveAll(Arrays.asList(bob,teacher));
 		};
 	}
 }

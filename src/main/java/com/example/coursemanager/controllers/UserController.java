@@ -24,6 +24,11 @@ public class UserController {
         return repository.findAll();
     }
 
+    @GetMapping("/users/instructors")
+    public List<User> getInstructors(){
+        return repository.findByRole("Instructor");
+    }
+
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable long id) {
         return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
