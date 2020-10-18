@@ -3,6 +3,8 @@ package com.example.coursemanager;
 import com.example.coursemanager.dao.CourseRepository;
 import com.example.coursemanager.dao.UserRepository;
 import com.example.coursemanager.models.Course;
+import com.example.coursemanager.models.Instructor;
+import com.example.coursemanager.models.Student;
 import com.example.coursemanager.models.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,10 +22,12 @@ public class CoursemanagerApplication {
 	CommandLineRunner init(UserRepository userRepository, CourseRepository courseRepository) {
 		return args -> {
 			//Create the User
-			User bob = new User("Bob");
+			User bob = new Student("Bob");
+			User teacher = new Instructor("Bossman");
 
 			//Save the user
 			userRepository.save(bob);
+			userRepository.save(teacher);
 
 			//Create the course
 			Course course = new Course("Python");
@@ -33,11 +37,11 @@ public class CoursemanagerApplication {
 
 			// add course to the user
 			bob.getSubscriptions().add(course);
-			course.getSubscribers().add(bob);
+			teacher.getSubscriptions().add(course);
 
 			//update the user
-//			userRepository.save(bob);
-			courseRepository.save(course);
+			userRepository.save(bob);
+			userRepository.save(teacher);
 		};
 	}
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
@@ -15,13 +16,15 @@ public class User {
 
     private @Id @GeneratedValue(strategy= GenerationType.IDENTITY) long id;
     private String name;
+    private String role;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Course> subscriptions = new ArrayList<>();
 
     public User(){ } //Empty constructor required by hibernate
 
-    public User(String name) {
+    public User(String name, String role) {
         this.name = name;
+        this.role = role;
     }
 
     public long getId() {
@@ -46,5 +49,9 @@ public class User {
 
     public void setSubscriptions(List<Course> subscriptions) {
         this.subscriptions = subscriptions;
+    }
+
+    public String getRole() {
+        return role;
     }
 }
