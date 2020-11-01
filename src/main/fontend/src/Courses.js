@@ -18,7 +18,7 @@ export default class Courses extends Component {
   render() {
     const courses = this.state.Courses.map((course, index) => (
       <div key={index}>
-        <h1>{course.id}</h1>
+        <h3>{course.id}</h3>
         <p>{course.name}</p>
       </div>
     ));
