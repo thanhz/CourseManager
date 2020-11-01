@@ -19,10 +19,10 @@ const Users = () => {
   const DisplayUsers = () => {
     return users.map((user, index) => {
       return (
-        <div key={index}>
-          <h1>{user.id}</h1>
-          <p>{user.name}</p>
-        </div>
+          <tr key={index} >
+            <td>{user.id}</td>
+            <td>{user.name}</td>
+          </tr>    
       );
     });
   };
@@ -54,8 +54,10 @@ const Users = () => {
 
   return (
     <div>
-      <input type='submit' value='View All Users' onClick={() => onClick("view")} />
-      <input type='submit' value='Add a new user' onClick={() => onClick("add")} />
+      <div className="UserButtons">
+        <input type='submit' value='View All Users' onClick={() => onClick("view")} />
+        <input type='submit' value='Add a new user' onClick={() => onClick("add")} />
+      </div>
       
       {showForms ? (
       <form onSubmit={handleSubmit}>
@@ -67,7 +69,18 @@ const Users = () => {
       </form>
       ) : null}
       
-      {showUsers ? <DisplayUsers /> : null}
+      <div className="DisplayUsers">
+      {showUsers ?
+       <div>
+         <table>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+          </tr>          
+           <DisplayUsers />
+        </table>
+        </div> : null}   
+      </div>
     </div>
   );
 };

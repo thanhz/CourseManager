@@ -1,2 +1,1 @@
-insert into User (name) values('Alice');
-insert into Course (name) values('Java for Dummies');
+insert into User (name, role) values('Alice','Student');
